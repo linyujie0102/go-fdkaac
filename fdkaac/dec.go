@@ -23,8 +23,6 @@
 package fdkaac
 
 /*
-#cgo CFLAGS: -I/usr/lib/fdk-acc-2.0/include/fdk-aac/
-#cgo LDFLAGS: -L/usr/lib/fdk-acc-2.0/lib/ -lfdk-aac -Wl,-rpath=/usr/lib/fdk-acc-2.0/lib/
 #include "aacdecoder_lib.h"
 
 typedef struct {
@@ -389,9 +387,11 @@ func (v *AacDecoder) SampleRate() int {
 }
 
 // The frame size of the decoded PCM audio signal.
-//		1024 or 960 for AAC-LC
-//		2048 or 1920 for HE-AAC (v2)
-//		512 or 480 for AAC-LD and AAC-ELD
+//
+//	1024 or 960 for AAC-LC
+//	2048 or 1920 for HE-AAC (v2)
+//	512 or 480 for AAC-LD and AAC-ELD
+//
 // @remark The only really relevant ones for the user.
 func (v *AacDecoder) FrameSize() int {
 	return int(C.aacdec_frame_size(&v.m))
@@ -434,15 +434,19 @@ func (v *AacDecoder) Bitrate() int {
 }
 
 // Samples per frame for the AAC core (from ASC).
-//		1024 or 960 for AAC-LC
-//		512 or 480 for AAC-LD and AAC-ELD
+//
+//	1024 or 960 for AAC-LC
+//	512 or 480 for AAC-LD and AAC-ELD
+//
 // @remark Decoder internal members.
 func (v *AacDecoder) AacSamplesPerFrame() int {
 	return int(C.aacdec_aac_samples_per_frame(&v.m))
 }
 
 // The number of audio channels after AAC core processing (before PS or MPS processing).
-//		CAUTION: This are not the final number of output channels!
+//
+//	CAUTION: This are not the final number of output channels!
+//
 // @remark Decoder internal members.
 func (v *AacDecoder) AacNumChannels() int {
 	return int(C.aacdec_aac_num_channels(&v.m))
